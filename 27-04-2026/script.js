@@ -93,3 +93,22 @@ let player = {
 }
 
 console.log(typeof(player.jno))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

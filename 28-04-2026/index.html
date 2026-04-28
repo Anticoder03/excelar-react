@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Stopwatch</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-900 text-white flex items-center justify-center h-screen">
+
+  <div class="bg-gray-800 p-10 rounded-2xl shadow-xl text-center">
+
+    <!-- Time Display -->
+    <div class="text-5xl font-bold mb-6 space-x-2">
+      <span id="hours">00</span> :
+      <span id="minutes">00</span> :
+      <span id="seconds">00</span>
+    </div>
+
+    <!-- Buttons -->
+    <div class="space-x-4">
+      <button class="start-button bg-green-500 hover:bg-green-600 px-6 py-2 rounded-lg">
+        Start
+      </button>
+      <button class="stop-button bg-yellow-500 hover:bg-yellow-600 px-6 py-2 rounded-lg">
+        Stop
+      </button>
+      <button class="reset-button bg-red-500 hover:bg-red-600 px-6 py-2 rounded-lg">
+        Reset
+      </button>
+    </div>
+
+  </div>
+
+  <script>
+    const displaySeconds = document.querySelector("#seconds");
+    const displayMinutes = document.querySelector("#minutes");
+    const displayHours = document.querySelector("#hours");
+
+    let s = 0, m = 0, h = 0;
+    let interval = null;
+
+    function format(num) {
+      return num.toString().padStart(2, "0");
+    }
+
+    function startTimer() {
+      if (interval) return; // prevent multiple intervals
+
+      interval = setInterval(() => {
+        s++;
+
+        if (s === 60) {
+          s = 0;
+          m++;
+
+          if (m === 60) {
+            m = 0;
+            h++;
+          }
+        }
+
+        displaySeconds.innerHTML = format(s);
+        displayMinutes.innerHTML = format(m);
+        displayHours.innerHTML = format(h);
+
+      }, 1000);
+    }
+
+    function stopTimer() {
+      clearInterval(interval);
+      interval = null;
+    }
+
+    function resetTimer() {
+      clearInterval(interval);
+      interval = null;
+      s = 0; m = 0; h = 0;
+
+      displaySeconds.innerHTML = "00";
+      displayMinutes.innerHTML = "00";
+      displayHours.innerHTML = "00";
+    }
+
+    const startButton = document.querySelector(".start-button");
+    const stopButton = document.querySelector(".stop-button");
+    const resetButton = document.querySelector(".reset-button");
+
+    startButton.addEventListener("click", startTimer);
+    stopButton.addEventListener("click", stopTimer);
+    resetButton.addEventListener("click", resetTimer);
+  </script>
+
+</body>
+</html>
